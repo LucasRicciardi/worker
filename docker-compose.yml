@@ -1,0 +1,49 @@
+version: "3"
+services: 
+    queue:
+        image: rabbitmq:management
+        ports:
+            - 5672:5672
+            - 15672:15672
+    worker_1:
+        build: 
+            context: .
+        environment: 
+            - ENV=test
+            - WORKER_NAME=worker_1
+            - RABBITMQ_HOST=queue
+            - APPLICATION_SRC_QUEUE=worker_1_queue
+            - APPLICATION_DEST_QUEUE=results_queue
+        depends_on: 
+            - queue
+        restart: unless-stopped
+        volumes: 
+            - .:/app
+    worker_2:
+        build: 
+            context: .
+        environment: 
+            - ENV=test
+            - WORKER_NAME=worker_2
+            - RABBITMQ_HOST=queue
+            - APPLICATION_SRC_QUEUE=worker_2_queue
+            - APPLICATION_DEST_QUEUE=results_queue
+        depends_on: 
+            - queue
+        restart: unless-stopped
+        volumes: 
+            - .:/app
+    worker_3:
+        build: 
+            context: .
+        environment: 
+            - ENV=test
+            - WORKER_NAME=worker_3
+            - RABBITMQ_HOST=queue
+            - APPLICATION_SRC_QUEUE=worker_3_queue
+            - APPLICATION_DEST_QUEUE=results_queue
+        depends_on: 
+            - queue
+        restart: unless-stopped
+        volumes: 
+            - .:/app

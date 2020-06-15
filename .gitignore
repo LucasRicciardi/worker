@@ -1,0 +1,15 @@
+
+# vscode settings
+.vscode
+
+# dist folder
+dist/
+
+# python virtualenv
+env/
+
+# execution cache folder
+__pycache__
+
+# setup info
+*.egg-info
